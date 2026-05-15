@@ -1,6 +1,6 @@
 /* ====== Base Settings ====== */
 :root {
-    --bg-gradient: linear-gradient(135deg, #070b19 0%, #0c1838 50%, #061c2e 100%);
+    --bg-gradient: linear-gradient(135deg, #070b19 0%, #10234d 34%, #111936 62%, #062c3c 100%);
     /* Deep shaded cyber gradient */
     --text-color: #ffffff;
     /* Pure white */
@@ -35,8 +35,8 @@
 
 body {
     background: var(--bg-gradient);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    background-size: 500% 500%;
+    animation: gradientShift 18s ease infinite;
     background-attachment: fixed;
     color: var(--text-color);
     min-height: 100vh;
@@ -45,6 +45,7 @@ body {
     align-items: center;
     position: relative;
     overflow-x: hidden;
+    isolation: isolate;
 }
 
 @keyframes gradientShift {
@@ -61,15 +62,16 @@ body {
     }
 }
 
-/* ====== Animated AI Dot Grid Background ====== */
-body::before, body::after {
+/* ====== Animated AI Symbol Background ====== */
+body::before,
+body::after {
     content: '';
     position: fixed;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
-    z-index: -2;
+    z-index: 0;
     pointer-events: none;
 }
 
@@ -84,7 +86,7 @@ body::after {
 body::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Ctext x='80' y='120' fill='rgba(0, 229, 255, 0.08)' font-family='sans-serif' font-size='20'%3E%E5%AD%97%3C/text%3E%3Ctext x='400' y='80' fill='rgba(0, 229, 255, 0.1)' font-family='sans-serif' font-size='22'%3Ea%3C/text%3E%3Ctext x='500' y='400' fill='rgba(0, 229, 255, 0.15)' font-family='sans-serif' font-size='18'%3E%C2%BF%3C/text%3E%3Ctext x='250' y='300' fill='rgba(0, 229, 255, 0.12)' font-family='sans-serif' font-size='24'%3E%C3%B1%3C/text%3E%3Ctext x='100' y='500' fill='rgba(0, 229, 255, 0.08)' font-family='sans-serif' font-size='20'%3E%CE%B5%3C/text%3E%3Ctext x='350' y='550' fill='rgba(0, 229, 255, 0.1)' font-family='sans-serif' font-size='22'%3E%EA%B0%80%3C/text%3E%3C/svg%3E");
     background-size: 600px 600px;
-    z-index: -3;
+    z-index: 0;
     animation: parallaxBackground 90s linear infinite;
 }
 
@@ -98,18 +100,52 @@ body::before {
     100% { transform: translate(-600px, -600px); }
 }
 
-/* ====== Animated Background Blobs ====== */
-.blob {
+/* ====== AI Animated Background ====== */
+.ai-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ai-background::before {
+    content: '';
     position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(rgba(0, 229, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(111, 66, 255, 0.04) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 74%);
+    -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95), transparent 74%);
+    animation: gridDrift 28s linear infinite;
+}
+
+.ai-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.14), transparent 18%),
+        radial-gradient(circle at 82% 76%, rgba(142, 91, 255, 0.12), transparent 20%),
+        radial-gradient(circle at 52% 52%, rgba(0, 255, 179, 0.07), transparent 23%);
+    opacity: 0.8;
+    animation: auroraPulse 12s ease-in-out infinite alternate;
+}
+
+.blob {
+    position: fixed;
     filter: blur(80px);
-    z-index: -1;
     border-radius: 50%;
+    opacity: 0.9;
+    mix-blend-mode: screen;
 }
 
 .blob-1 {
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.18) 0%, transparent 70%);
     top: -100px;
     left: -100px;
     animation: float1 20s infinite alternate ease-in-out;
@@ -118,11 +154,71 @@ body::before {
 .blob-2 {
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(132, 78, 255, 0.16) 0%, transparent 70%);
     bottom: -100px;
     right: -100px;
     animation: float2 25s infinite alternate ease-in-out;
     animation-delay: -5s;
+}
+
+.blob-3 {
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(0, 255, 179, 0.13) 0%, transparent 72%);
+    top: 34%;
+    right: 18%;
+    animation: float3 22s infinite alternate ease-in-out;
+    animation-delay: -9s;
+}
+
+.particle-layer {
+    position: absolute;
+    inset: -20%;
+    opacity: 0.72;
+    will-change: transform;
+}
+
+.particle-layer-1 {
+    background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.75) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(0, 229, 255, 0.7) 0 1px, transparent 1.5px);
+    background-position: 0 0, 42px 68px;
+    background-size: 130px 130px, 180px 180px;
+    animation: particleRise 38s linear infinite;
+}
+
+.particle-layer-2 {
+    background-image:
+        radial-gradient(circle, rgba(142, 91, 255, 0.55) 0 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(0, 255, 179, 0.5) 0 1px, transparent 1.5px);
+    background-position: 88px 40px, 10px 120px;
+    background-size: 210px 210px, 260px 260px;
+    animation: particleDrift 52s linear infinite;
+}
+
+.particle-layer-3 {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.36) 0 1px, transparent 1.4px);
+    background-size: 95px 95px;
+    filter: blur(0.4px);
+    opacity: 0.35;
+    animation: particleTwinkle 9s ease-in-out infinite alternate;
+}
+
+@keyframes gridDrift {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(72px, 72px, 0); }
+}
+
+@keyframes auroraPulse {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.52;
+    }
+
+    100% {
+        transform: scale(1.08) rotate(4deg);
+        opacity: 0.86;
+    }
 }
 
 @keyframes float1 {
@@ -133,6 +229,31 @@ body::before {
     100% {
         transform: translate(150px, 150px) scale(1.15);
     }
+}
+
+@keyframes float3 {
+    0% {
+        transform: translate(0, 0) scale(0.95);
+    }
+
+    100% {
+        transform: translate(-120px, 90px) scale(1.18);
+    }
+}
+
+@keyframes particleRise {
+    0% { transform: translate3d(0, 8%, 0); }
+    100% { transform: translate3d(-6%, -16%, 0); }
+}
+
+@keyframes particleDrift {
+    0% { transform: translate3d(-4%, -2%, 0) rotate(0deg); }
+    100% { transform: translate3d(8%, 10%, 0) rotate(12deg); }
+}
+
+@keyframes particleTwinkle {
+    0% { opacity: 0.18; transform: scale(1); }
+    100% { opacity: 0.5; transform: scale(1.04); }
 }
 
 @keyframes float2 {
@@ -153,6 +274,7 @@ body::before {
     display: flex;
     flex-direction: column;
     gap: 25px;
+    position: relative;
     z-index: 1;
 }
 
