@@ -44,3 +44,9 @@ CodeAlpha_LanguageTranslator/
 │   └── script.js
 │
 └── README.md
+
+---
+
+## Live Demo
+
+https://codealpha-languagetranslator.onrender.com/
